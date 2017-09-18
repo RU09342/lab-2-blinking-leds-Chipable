@@ -4,6 +4,8 @@ Applicable for code written for the following dev boards:
 * FR5994
 * FR2311
 * F5529
+* G2553
+* FR6989
 
 The code blinks one of the onboard leds at a constant rate. 
 ## Similarities 
@@ -20,3 +22,6 @@ All of the source files contain some kind of GPIO initialzation. They all consis
 
 ### Loop
 Finally all the source files have an infinite while loop. Inside the loop there is code that sets the output pin high and then low with a delay inbetween. This controls the flashing light.
+
+## Differences
+One of the main differences is that the FR boards require and extra line of code "PM5CTL0 &= ~LOCKLPM5;" to adjust the power settings in order to be able to adjust the P1 registers
