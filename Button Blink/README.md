@@ -1,21 +1,28 @@
-# Button Blink
-Now that you have looked at blinking the LED from some built in delay, but what if we wanted to control the state of the LED by a button? You may think "Why would I need a Microcontroller to perform the job of a switch?". And that is where you come in. The bare minimum for this part of the lab is to essentially replicate a switch with your development board.
+# Simple Blink
+## description
+Applicable for code written for the following dev boards:
+* FR5994
+* FR2311
+* F5529
+* G2553
+* FR6989
 
-# YOU NEED TO CREATE THE FOLLOWING FOLDERS
-* MSP430G2553
-* MSP430F5529
-* MSP430FR2311
-* MSP430FR5994
-* MSP430FR6989
+The code toggles one of the onboard LEDs when the coresponding button is pressed
 
-## README
-Remember to replace this README with your README once you are ready to submit. I would recommend either making a copy of this file or taking a screen shot. There might be a copy of all of these README's in a folder on the top level depending on the exercise.
+## Similarities 
+All of the files go through three main sections
+* Turn off watchdog timer
+* INIT GPIO
+* Loop
 
-## Extra Work
-What can we do to make this a little bit more worthy of needing a microcontroller.
+### Turn Off Watchdog Timer
+All of the source files contain the code "WDTCTL = WDTPW | WDTHOLD;", which stops the watchdog timer
 
-### Button Based Speed Control
-Much like the UART controlled speed, what if you could cycle between speeds based on a button press? The speed could progress through a cycle of "Off-Slow-Medium-Fast" looping back when you hit the end.
+### INIT GPIO
+All of the source files contain some kind of GPIO initialzation. They all consist of setting the port direction and setting the port muxes. The only changes between dev boards are on the pins configured
 
-### Color Change
-What if upon a button press, the LED which was blinking changed. Some of the development boards contain two LEDs, so you could swap between a Red and a Green LED.
+### Loop
+Finally all the source files have an infinite while loop. Inside the loop there is an if statement that is constntly polling the state of the input pin when the input pin is pulled low by the switch the if statement condition becomes true and toggles the state of the ouput pin. A state variable is set prevent the if statement from being entered again until after the button is released.
+
+## Differences
+One of the main differences is that the FR boards require and extra line of code "PM5CTL0 &= ~LOCKLPM5;" to adjust the power settings in order to be able to adjust the P1 registers
