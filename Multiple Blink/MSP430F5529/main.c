@@ -12,10 +12,10 @@ int main(void)
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
 
 	/* GPIO INIT*/
-    P1DIR |= BIT0;
-    P4DIR |= BIT7;
-    P1SEL &= ~BIT0;
-    P4SEL &= ~BIT7;
+    P1DIR |= BIT0;          //sets P1.0 as output
+    P4DIR |= BIT7;          //sets P4.7 as output
+    P1SEL &= ~BIT0;         //sets P1.0 mux for gpio
+    P4SEL &= ~BIT7;         //sets P4.7 mux for gpio
 	
 	/* LED FLASHING*/
     while(1){
