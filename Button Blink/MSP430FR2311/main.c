@@ -9,7 +9,7 @@
 
 int main(void){
 
-int state = 1;
+int state = 1;      // tracks the button press
 
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
     PM5CTL0 &= ~LOCKLPM5;  // adjust power settings
@@ -24,11 +24,11 @@ int state = 1;
 
         /* Button Enabled LED*/
         while(1){
-            if((~P1IN & (1<<1))&&state){
-                P1OUT ^=(1<<0); // Toggles P1.0
-                state = 0;
+            if((~P1IN & (1<<1))&&state){        //executes only once per button press
+                P1OUT ^=(1<<0);                 // Toggles P1.0
+                state = 0;                      //stops if from executing until button is released
             }
             else if(P1IN & (1<<1))
-                state = 1;
+                state = 1;                      // resets state
         }
 }
