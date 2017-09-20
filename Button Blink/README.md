@@ -26,3 +26,6 @@ Finally all the source files have an infinite while loop. Inside the loop there 
 
 ## Differences
 One of the main differences is that the FR boards require and extra line of code "PM5CTL0 &= ~LOCKLPM5;" to adjust the power settings in order to be able to adjust the P1 registers
+
+## EXTRA WORK
+A Debounce function "debounce(int pxin, int bitx)" was implemented for the FR2311 dev board to return the debounced value of an input pin. Although the debounce function was only used with the FR2311 it can be used with the other boards aswell. With inputs of "pxin" and "bitx" this function can be used for any pin on any gpio port.
