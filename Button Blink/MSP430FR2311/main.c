@@ -7,6 +7,8 @@
 
 #include <msp430.h> 
 
+int debounce(int pxin,int bitx);
+
 int main(void){
 
 int state = 1;      // tracks the button press
@@ -24,11 +26,26 @@ int state = 1;      // tracks the button press
 
         /* Button Enabled LED*/
         while(1){
-            if((~P1IN & (1<<1))&&state){        //executes only once per button press
+            if(debounce(~P1IN,BIT1)&&state){        //executes only once per button press
                 P1OUT ^=(1<<0);                 // Toggles P1.0
                 state = 0;                      //stops if from executing until button is released
             }
-            else if(P1IN & (1<<1))
+            else if(debounce(P1IN,BIT1))
                 state = 1;                      // resets state
         }
+}
+
+int debounce(int pxin,int bitx){
+    int vote=0;
+
+    while (1){
+        if (pxin & bitx)
+            vote += 1;
+        else if (~pxin & bitx)
+            vote -= 1;
+        if(vote==50)
+            return 1;
+        if(vote == -50)
+            return 0;
+    }
 }
